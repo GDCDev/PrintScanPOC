@@ -13,8 +13,7 @@ sap.ui.define([
 
 		_onRouteMatched: function(oEvent) {
 			this._sEan = decodeURIComponent(oEvent.getParameter("arguments").ean);
-			
-			var sServiceUrl = "/jsonSet/EANSet?EAN=" + this._sEan;
+			var sServiceUrl = "/testSet/EANSet?EAN=" + this._sEan;
 			var oDataModel = new JSONModel();
 			var oView = this.getView();
 			$.ajax({

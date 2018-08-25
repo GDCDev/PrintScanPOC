@@ -3,7 +3,7 @@ sap.ui.define([
 	,"sap/ui/core/UIComponent"
 	,"sap/m/MessageBox"
 	,"sap/ui/model/json/JSONModel"
-], function (Controller) {
+], function (Controller, UIComponent, MessageBox, JSONModel) {
 	"use strict";
 
 	return Controller.extend("esprit.poc.PrintScanPOC.controller.StyleList", {
@@ -16,7 +16,7 @@ sap.ui.define([
 		_onObjectMatched: function (oEvent) {
 			var query = oEvent.getParameter("arguments").styleId;
 			if (query && query !== "") {
-				var sServiceUrl = "/jsonSet/EANSet?Style=" + query;
+				var sServiceUrl = "/testSet/EANSet?Style=" + query;
 				var olistDataModel = new JSONModel();
 				var oView = this.getView();
 				$.ajax({
