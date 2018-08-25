@@ -1,0 +1,33 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="esprit.poc.PrintScanPOC.controller.StyleList"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="{i18n>title}" showNavButton="true" navButtonPress="action" action:wiring="\{'navButtonPress':\{'navigation':\{'routeName':'StyleInput'\}\}\}">
+				<content>
+					<VBox width="100%" direction="Column" id="vbox0" wrap="Wrap">
+				       
+				         <Label width="100%" id="style" wrapping="true" class="labelStyle"/>
+				    </VBox>
+				    <List id="poList" modeAnimationOn="false" items="{view>/listData}" updateFinished="onUpdateFinished">
+					<ObjectListItem type="Active" title="{view>EAN}" number="{view>Netprice}" numberUnit="{view>Currency}" press="onLineItemPressed">
+				        <attributes>
+				            <ObjectAttribute text="{i18n>color}: {view>Colour}" id="color"/>
+				            <ObjectAttribute text="{i18n>size}: {view>Size}" id="size"/>
+				            <ObjectAttribute text="{view>Description}" id="odesc" visible="false"/>
+				            <ObjectAttribute text="{view>Style}" id="ostyle" visible="false"/>
+				        </attributes>
+				     </ObjectListItem>
+				     </List>
+				</content>
+			<footer>
+			    <Bar class="sapContrast sapContrastPlus" id="bar0">
+			        <contentMiddle>
+			            <Button text="{i18n>printList}" width="100px" id="button0" type="Emphasized" press="onPrintEANListPressed"/>
+			        </contentMiddle>
+			    </Bar>
+			</footer>
+			
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

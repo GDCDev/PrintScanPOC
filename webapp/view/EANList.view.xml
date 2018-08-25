@@ -1,0 +1,24 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="esprit.poc.PrintScanPOC.controller.EANList"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="{i18n>title}" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+				     <List id="barcodeList" items="{view>/listData}">
+				     	<items>
+						<StandardListItem type="Active" title="{view>Code}" press="onLineItemPressed"/>
+						</items>
+					</List>
+				   
+				</content>
+				<footer>
+				    <Bar class="sapContrast sapContrastPlus" id="bar0">
+					    <contentRight>
+					        <Button xmlns="sap.m" xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" text="{i18n>cancel}" width="100px" id="button0" press="action" action:wiring="\{'press':\{'navigation':\{'routeName':'StyleInput'\}\}\}"/>
+					    </contentRight>
+				    </Bar>	
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

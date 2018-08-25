@@ -1,0 +1,182 @@
+{
+	"_version": "1.8.0",
+	"sap.app": {
+		"id": "esprit.poc.PrintScanPOC",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.40.12"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+		]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "esprit.poc.PrintScanPOC.view.StyleInput",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.layout": {},
+				"sap.ui.core": {},
+				"sap.m": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "esprit.poc.PrintScanPOC.i18n.i18n"
+				}
+			}
+		},
+		"resources": {
+			"js": [
+				{
+					"uri": "utils/JsBarcode.ean-upc.min.js"
+				}
+			],
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"async": true,
+				"viewPath": "esprit.poc.PrintScanPOC.view",
+				"controlAggregation": "pages",
+				"controlId": "idAppControl",
+				"clearControlAggregation": false
+			},
+			"routes": [
+				{
+					"name": "RouteStyleInput",
+					"pattern": "RouteStyleInput",
+					"target": [
+						"TargetStyleInput"
+					]
+				}, 
+				{
+					"name": "ScanSingle",
+					"pattern": "ScanSingle",
+					"target": ["ScanSingle"]
+				}, 
+				{
+					"name": "StyleInput",
+					"pattern": "StyleInput",
+					"target": ["TargetStyleInput"]
+				}, 
+				{
+					"name": "StyleList",
+					"pattern": "StyleList/:styleId:",
+					"target": ["StyleList"]
+				}, 
+				{
+					"name": "EANDetail",
+					"pattern": "EANDetail/{ean}",
+					"target": ["EANDetail"]
+				}, 
+				{
+					"name": "EANList",
+					"pattern": "EANList/:barcodes:",
+					"target": ["EANList"]
+				}, 
+				{
+					"name": "ScanMulti",
+					"pattern": "ScanMulti",
+					"target": ["ScanMulti"]
+				}
+			],
+			"targets": {
+				"TargetStyleInput": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "StyleInput",
+					"routerClass": "sap.m.routing.Router",
+					"async": true,
+					"viewPath": "esprit.poc.PrintScanPOC.view",
+					"controlAggregation": "pages",
+					"controlId": "idAppControl"
+				},
+				"ScanSingle": {
+					"viewType": "XML",
+					"viewName": "ScanSingle",
+					"routerClass": "sap.m.routing.Router",
+					"async": true,
+					"viewPath": "esprit.poc.PrintScanPOC.view",
+					"controlAggregation": "pages",
+					"controlId": "idAppControl",
+					"clearControlAggregation": false
+				},
+				"ScanMulti": {
+					"viewType": "XML",
+					"viewName": "ScanMulti",
+					"routerClass": "sap.m.routing.Router",
+					"async": true,
+					"viewPath": "esprit.poc.PrintScanPOC.view",
+					"controlAggregation": "pages",
+					"controlId": "idAppControl",
+					"clearControlAggregation": false
+				},
+				"StyleList": {
+					"viewType": "XML",
+					"viewName": "StyleList",
+					"routerClass": "sap.m.routing.Router",
+					"async": true,
+					"viewPath": "esprit.poc.PrintScanPOC.view",
+					"controlAggregation": "pages",
+					"controlId": "idAppControl",
+					"clearControlAggregation": false
+				},
+				"EANDetail": {
+					"viewType": "XML",
+					"viewName": "EANDetail",
+					"routerClass": "sap.m.routing.Router",
+					"async": true,
+					"viewPath": "esprit.poc.PrintScanPOC.view",
+					"controlAggregation": "pages",
+					"controlId": "idAppControl",
+					"clearControlAggregation": false
+				},
+				"EANList": {
+					"viewType": "XML",
+					"viewName": "EANList"
+				}
+			}
+		}
+	}
+}
