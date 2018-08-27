@@ -53,25 +53,35 @@ sap.ui.define([
 			var sPrintPage = "";
 			//for monospaced font
 			sPrintPage += "<tt>";
-			var aStylearr = this.getView().byId("style").getText().split(" - ");
-			if (aStylearr.length < 2) {
-				if (!aStylearr[0])
-					aStylearr[0] = "";
-				aStylearr[1] = "";
-			}
-			var sCurr = "EUR";
-			if (aItems.length > 0 && aItems[0].mProperties.Currency) {
-				sCurr = aItems[0].mProperties.Currency;
-			}
-			sPrintPage += aStylearr[0];
-			//style
-			sPrintPage += "<br/>";
-			sPrintPage += aStylearr[1] + "<br/>";
-			//---->i18n
-			sPrintPage += "<br/>";
-			sPrintPage += "EAN             Color   Size      Price (" + sCurr + ")<br/>";
-			sPrintPage += "=============   =====   ======      =========<br/>";
+			
+			var currentstyle=null;
 			for (var i = 0; i < aItems.length; i++) {
+				var sCurr = "EUR";
+				if (aItems[i].mProperties.Currency) {
+					sCurr = aItems[i].mProperties.Currency;
+				}
+				
+				var aStyle = aItems[i].mProperties.intro.split(" - ");
+				if (aStyle.length < 2) {
+					if (!aStyle[0])
+						aStyle[0] = "";
+					aStyle[1] = "";
+				}
+			
+				if(currentstyle!=aStyle[0]){
+					
+					if(i!=0)
+						sPrintPage += "<br/><br/><br/>";
+					
+					currentstyle = aStyle[0];
+					sPrintPage += currentstyle;
+					//style
+					sPrintPage += "<br/>";
+					sPrintPage += aStyle[1] + "<br/>";
+					sPrintPage += "<br/>";
+					sPrintPage += "EAN             Color   Size      Price (" + sCurr + ")<br/>";
+					sPrintPage += "=============   =====   ======      =========<br/>";
+				}
 				var sPrintLine = "";
 				sPrintLine += fnSetBlank(aItems[i].mProperties.title, 16);
 				sPrintLine += fnSetBlank(fnGetAfterColon(aItems[i].mAggregations.attributes[0].mProperties.text), 8);
@@ -84,8 +94,7 @@ sap.ui.define([
 			sPrintPage += "</tt>";
 			sPrintPage = sPrintPage.replace(/ /g, "&nbsp;");
 			var oOptions = {
-				name: "StyleEANList" + aStylearr[0],
-				// + style
+				name: "StyleEANList",
 				printerId: ""
 			};
 			if (cordova) {
@@ -100,9 +109,9 @@ sap.ui.define([
 		/* ======================================================  */
 		_onObjectMatched: function (oEvent) {
 			var sQuery = oEvent.getParameter("arguments").styleId;
-			var sServiceUrl = "/testSet/EANSet";
+			var sServiceUrl = "/testSet/EANSet?_sort=Style&_order=asc";
 			if (sQuery && sQuery !== "") {
-				sServiceUrl = sServiceUrl + "?Style_like=" + sQuery.toUpperCase();
+				sServiceUrl = sServiceUrl + "&Style_like=" + sQuery.toUpperCase();
 			} 
 			
 			var olistDataModel = new JSONModel();
