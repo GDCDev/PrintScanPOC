@@ -14,7 +14,7 @@
 				<footer>
 				    <Bar class="sapContrast sapContrastPlus" id="bar0">
 					    <contentRight>
-					        <Button xmlns="sap.m" xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" text="{i18n>cancel}" width="100px" id="button0" press="action" action:wiring="\{'press':\{'navigation':\{'routeName':'StyleInput'\}\}\}"/>
+					        <Button xmlns="sap.m"  text="{i18n>cancel}" width="100px" id="button0" press="navTo('StyleInput')" />
 					    </contentRight>
 				    </Bar>	
 				</footer>

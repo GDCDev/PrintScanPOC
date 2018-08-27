@@ -1,4 +1,4 @@
-﻿sap.ui.define([
+sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History"
 ], function(Controller, History) {
@@ -26,8 +26,18 @@
 				// history contains a previous entry
 				window.history.go(-1);
 			} else {
-				this._oRouter.navTo(sRouteName);
+				this.getRouter().navTo(sRouteName);
 			}
+		},
+		
+		/**
+		* General function for navigating to
+		* 
+		* @param {string} sRouteName - Default route to navigate if no history found
+		* @public
+		*/
+		navTo: function(sRouteName) {
+			this.getRouter().navTo(sRouteName);
 		}
 	});
 });

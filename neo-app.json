@@ -27,6 +27,14 @@
         "name": "espritTest"
       },
       "description": "espritTest"
+    },
+    {
+      "path": "/jsonSet",
+      "target": {
+        "type": "destination",
+        "name": "jsonSet"
+      },
+      "description": "jsonSet"
     }
   ],
   "sendWelcomeFileRedirect": true

@@ -1,15 +1,11 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="esprit.poc.PrintScanPOC.controller.StyleList"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="esprit.poc.PrintScanPOC.controller.StyleList">
 	<App>
 		<pages>
-			<Page xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="{i18n>title}" showNavButton="true" navButtonPress="action" action:wiring="\{'navButtonPress':\{'navigation':\{'routeName':'StyleInput'\}\}\}">
+			<Page title="{i18n>title}" showNavButton="true" navButtonPress="navBack('StyleInput')">
 				<content>
-					<VBox width="100%" direction="Column" id="vbox0" wrap="Wrap">
-				       
-				         <Label width="100%" id="style" wrapping="true" class="labelStyle"/>
-				    </VBox>
-				    <List id="poList" modeAnimationOn="false" items="{view>/listData}" updateFinished="onUpdateFinished">
-					<ObjectListItem type="Active" title="{view>EAN}" number="{view>Netprice}" numberUnit="{view>Currency}" press="onLineItemPressed">
+					
+				    <List id="poList" modeAnimationOn="false" items="{view>/listData}">
+					<ObjectListItem type="Active" title="{view>EAN}" number="{view>Netprice}" numberUnit="{view>Currency}" press="onLineItemPressed" intro="{view>Style} - {view>Description}">
 				        <attributes>
 				            <ObjectAttribute text="{i18n>color}: {view>Colour}" id="color"/>
 				            <ObjectAttribute text="{i18n>size}: {view>Size}" id="size"/>
