@@ -122,6 +122,7 @@ sap.ui.define([
 		        var oBody = document.getElementsByTagName('body')[0];
 		        var oDiv = document.createElement('div');
 		        oDiv.id='printContainer';
+		        oDiv.style="display:none";
 		        oBody.appendChild(oDiv);
 			} 
 			
