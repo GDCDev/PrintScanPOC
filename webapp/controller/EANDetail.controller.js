@@ -1,52 +1,22 @@
 sap.ui.define([
-	"esprit/standard/app/controller/BaseController"
+	"esprit/poc/PrintScanPOC/controller/BaseController"
 	,"sap/m/MessageBox"
 	,'sap/ui/model/json/JSONModel'
 ], function (Controller,MessageBox,JSONModel) {
 	"use strict";
 	return Controller.extend("esprit.poc.PrintScanPOC.controller.EANDetail", {
-		
+		/* ======================================================= */
+		/* lifecycle methods                                       */
+		/* ======================================================= */
 		onInit: function() {
 			var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("EANDetail").attachPatternMatched(this._onRouteMatched, this);
 		},
 
-		_onRouteMatched: function(oEvent) {
-			this._sEan = decodeURIComponent(oEvent.getParameter("arguments").ean);
-			var sServiceUrl = "/testSet/EANSet?EAN=" + this._sEan;
-			var oDataModel = new JSONModel();
-			var oView = this.getView();
-			$.ajax({
-				type : "GET",
-				url : sServiceUrl,
-				dataType: "json",
-				async : false,
-				success: function(data) {
-					if (data && data.length > 0){
-						oDataModel.setData(data[0]);
-						oView.setModel(oDataModel, "detail");
-					} else {
-						oDataModel.setData({});
-						oView.setModel(oDataModel, "detail");
-					}
-				},
-				error: function(err) {
-					MessageBox.alert(err.status + " - " + err.statusText, {
-									icon : MessageBox.Icon.ERROR,
-									title : "Error"
-							});
-				}
-			});
-			
-			//this._sPath =  "/EANModels('"+ this._sEan +"')";
-			
-			//var oDetail = this.byId("detail");
-			//if (oDetail) {
-			//	oDetail.bindElement({ path: this._sPath });
-			//}
-			
-		},
-
+		
+		/* ======================================================= */
+		/* event handlers                                          */
+		/* ======================================================= */
 		onNavBack: function(oEvent) {
 			var oHistory = sap.ui.core.routing.History.getInstance();
 			var	sPreviousHash = oHistory.getPreviousHash();
@@ -55,38 +25,6 @@ sap.ui.define([
 				history.go(-1);
 			} else {
 				this.getOwnerComponent().getRouter().navTo("StyleInput");
-			}
-		},
-
-		action: function (oEvent) {
-			var that = this;
-			var actionParameters = JSON.parse(oEvent.getSource().data("wiring").replace(/'/g, "\""));
-			var eventType = oEvent.getId();
-			var aTargets = actionParameters[eventType].targets || [];
-			aTargets.forEach(function (oTarget) {
-				var oControl = that.byId(oTarget.id);
-				if (oControl) {
-					var oParams = {};
-					for (var prop in oTarget.parameters) {
-						oParams[prop] = oEvent.getParameter(oTarget.parameters[prop]);
-					}
-					oControl[oTarget.action](oParams);
-				}
-			});
-			var oNavigation = actionParameters[eventType].navigation;
-			if (oNavigation) {
-				var oParams = {};
-				(oNavigation.keys || []).forEach(function (prop) {
-					oParams[prop.name] = encodeURIComponent(JSON.stringify({
-						value: oEvent.getSource().getBindingContext(oNavigation.model).getProperty(prop.name),
-						type: prop.type
-					}));
-				});
-				if (Object.getOwnPropertyNames(oParams).length !== 0) {
-					this.getOwnerComponent().getRouter().navTo(oNavigation.routeName, oParams);
-				} else {
-					this.getOwnerComponent().getRouter().navTo(oNavigation.routeName);
-				}
 			}
 		},
 		
@@ -139,6 +77,45 @@ sap.ui.define([
 					//console.log(res?"Done":"Canceled");
 				});
 			}
+		},
+		
+		/* ======================================================= */
+		/* private methods                                         */
+		/* ======================================================  */
+		_onRouteMatched: function(oEvent) {
+			this._sEan = decodeURIComponent(oEvent.getParameter("arguments").ean);
+			var sServiceUrl = "/testSet/EANSet?EAN=" + this._sEan;
+			var oDataModel = new JSONModel();
+			var oView = this.getView();
+			$.ajax({
+				type : "GET",
+				url : sServiceUrl,
+				dataType: "json",
+				async : false,
+				success: function(data) {
+					if (data && data.length > 0){
+						oDataModel.setData(data[0]);
+						oView.setModel(oDataModel, "detail");
+					} else {
+						oDataModel.setData({});
+						oView.setModel(oDataModel, "detail");
+					}
+				},
+				error: function(err) {
+					MessageBox.alert(err.status + " - " + err.statusText, {
+									icon : MessageBox.Icon.ERROR,
+									title : "Error"
+							});
+				}
+			});
+			
+			//this._sPath =  "/EANModels('"+ this._sEan +"')";
+			
+			//var oDetail = this.byId("detail");
+			//if (oDetail) {
+			//	oDetail.bindElement({ path: this._sPath });
+			//}
+			
 		}
 	});
 });

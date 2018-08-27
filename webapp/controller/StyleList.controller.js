@@ -1,5 +1,5 @@
 sap.ui.define([
-	"esprit/standard/app/controller/BaseController"
+	"esprit/poc/PrintScanPOC/controller/BaseController"
 	,"sap/ui/core/UIComponent"
 	,"sap/m/MessageBox"
 	,"sap/ui/model/json/JSONModel"
@@ -7,77 +7,21 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("esprit.poc.PrintScanPOC.controller.StyleList", {
-		
+		/* ======================================================= */
+		/* lifecycle methods                                       */
+		/* ======================================================= */
 		onInit: function () {
 			var oRouter = this.getOwnerComponent().getRouter();
 			oRouter.getRoute("StyleList").attachPatternMatched(this._onObjectMatched, this);
 		},
 		
-		_onObjectMatched: function (oEvent) {
-			var query = oEvent.getParameter("arguments").styleId;
-			if (query && query !== "") {
-				var sServiceUrl = "/testSet/EANSet?Style=" + query;
-				var olistDataModel = new JSONModel();
-				var oView = this.getView();
-				$.ajax({
-					type : "GET",
-					url : sServiceUrl,
-					dataType: "json", 
-					async : false,
-					success: function(data) {
-						
-						olistDataModel.setData({
-							listData: data
-						});
-						oView.setModel(olistDataModel, "view");
-					},
-					error: function(err) {
-						MessageBox.alert(err.status + " - " + err.statusText,{
-									icon : MessageBox.Icon.ERROR,
-									title : "Error"
-							});
-					}
-				});
-				
-			}
-		},
-		
+		/* ======================================================= */
+		/* event handlers                                          */
+		/* ======================================================= */
 		onLineItemPressed: function (oEvent) {
 			this.getOwnerComponent().getRouter().navTo("EANDetail", {
 				ean:encodeURIComponent(oEvent.getSource().getProperty("title"))
 			}, false);
-		},
-		
-		action: function (oEvent) {
-			var that = this;
-			var actionParameters = JSON.parse(oEvent.getSource().data("wiring").replace(/'/g, "\""));
-			var eventType = oEvent.getId();
-			var aTargets = actionParameters[eventType].targets || [];
-			aTargets.forEach(function (oTarget) {
-				var oControl = that.byId(oTarget.id);
-				if (oControl) {
-					var oParams = {};
-					for (var prop in oTarget.parameters) {
-						oParams[prop] = oEvent.getParameter(oTarget.parameters[prop]);
-					}
-					oControl[oTarget.action](oParams);
-				}
-			});
-			var oNavigation = actionParameters[eventType].navigation;
-			if (oNavigation) {
-				var oParams = {};
-				(oNavigation.keys || []).forEach(function (prop) {
-					oParams[prop.name] = encodeURIComponent(JSON.stringify({
-						value: oEvent.getSource().getBindingContext(oNavigation.model).getProperty(prop.name),
-						type: prop.type
-					}));
-				});
-				if (Object.getOwnPropertyNames(oParams).length !== 0) {
-					this.getOwnerComponent().getRouter().navTo(oNavigation.routeName, oParams);
-				} else {
-					this.getOwnerComponent().getRouter().navTo(oNavigation.routeName);
-				}
-			}
 		},
 
 		onPrintEANListPressed: function (oEvent) {
@@ -151,18 +95,40 @@ sap.ui.define([
 			}
 		},
 		
-		onUpdateFinished: function (oEvent) {
-			var aItems = this.byId("poList").getItems();
-			var oStyleCtrl = this.getView().byId("style");
-			if (aItems.length > 0) {
-				var sDesc = aItems[0].mAggregations.attributes[2].mProperties.text;
-				var sStyle = aItems[0].mAggregations.attributes[3].mProperties.text;
-				oStyleCtrl.setText(sStyle + " - " + sDesc); //styleCtrl.bindProperty("text", "/eanSet('xxxxx')/Style");
-			} else {
-				oStyleCtrl.setText(" - ");
-			}
+		/* ======================================================= */
+		/* private methods                                         */
+		/* ======================================================  */
+		_onObjectMatched: function (oEvent) {
+			var sQuery = oEvent.getParameter("arguments").styleId;
+			var sServiceUrl = "/testSet/EANSet";
+			if (sQuery && sQuery !== "") {
+				sServiceUrl = sServiceUrl + "?Style_like=" + sQuery.toUpperCase();
+			} 
+			
+			var olistDataModel = new JSONModel();
+			var oView = this.getView();
+			$.ajax({
+				type : "GET",
+				url : sServiceUrl,
+				dataType: "json", 
+				async : false,
+				success: function(data) {
+					
+					olistDataModel.setData({
+						listData: data
+					});
+					oView.setModel(olistDataModel, "view");
+				},
+				error: function(err) {
+					MessageBox.alert(err.status + " - " + err.statusText,{
+								icon : MessageBox.Icon.ERROR,
+								title : "Error"
+						});
+				}
+			});
+			
 		}
-
+		
 	});
 
 });

@@ -2,7 +2,7 @@
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<App>
 		<pages>
-			<Page xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" title="{i18n>title}" showNavButton="true" navButtonPress="action" action:wiring="\{'navButtonPress':\{'navigation':\{'routeName':'StyleInput'\}\}\}">
+			<Page title="{i18n>title}" showNavButton="true" navButtonPress="navTo('StyleInput')">
 				<content/>
 			<footer>
 			    <Bar id="bar0">
