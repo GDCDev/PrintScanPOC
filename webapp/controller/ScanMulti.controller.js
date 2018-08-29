@@ -97,7 +97,7 @@ sap.ui.define([
 				// } 
 				else {
 					if (!that.barcodes.includes(result.text))
-						that.barcodes.push(result.text);
+						that.barcodes.push(encodeURIComponent(result.text));
 					MessageToast.show(that.msgScanNew + result.text, {
 						duration: 500
 					});

@@ -20,7 +20,7 @@ sap.ui.define([
 			var oParams = {};
 			var oInput = this.byId("styleInput");
 			
-			oParams["styleId"] = oInput.getValue().trim();
+			oParams["styleId"] = encodeURIComponent(oInput.getValue().trim());
 			this.getRouter().navTo("StyleList", oParams);
 		},
 		

@@ -87,7 +87,7 @@ sap.ui.define([
 						// }
 						else{
 							that.getOwnerComponent().getRouter().navTo("EANDetail", {
-								ean : result.text
+								ean : encodeURIComponent(result.text)
 							}, false);
 						}
 					},

@@ -22,9 +22,9 @@
     },
     "tile": {
         "type": "StaticTile",
-        "title": "Title5",
+        "title": "ScanPoc_1",
         "subtitle": "",
-        "searchKeywords": "Title5,",
+        "searchKeywords": "ScanPoc_1,",
         "displayIconUrl": "sap-icon://approvals",
         "displayInfoText": "",
         "size": "1x1",
