@@ -2,21 +2,32 @@ sap.ui.define([
 	"esprit/poc/PrintScanPOC/controller/BaseController"
 	,"sap/ui/core/UIComponent"
 	,"sap/m/MessageBox"
-	], function (Controller,UIComponent,MessageBox) {
+	], function (BaseController,UIComponent,MessageBox) {
 	"use strict";
-	return Controller.extend("esprit.poc.PrintScanPOC.controller.ScanSingle", {
+	return BaseController.extend("esprit.poc.PrintScanPOC.controller.ScanSingle", {
 		/* ======================================================= */
 		/* lifecycle methods                                       */
 		/* ======================================================= */
 		onInit: function(){
-                var oRouter = UIComponent.getRouterFor(this);
+                var oRouter = this.getRouter();
                 oRouter.getRoute("ScanSingle")
                     .attachPatternMatched(this._onAfterRendering, this);
                 
                 var oComponent = sap.ui.component(sap.ui.core.Component.getOwnerIdFor(this.getView()));
         		this._oResourceBundle = oComponent.getModel("i18n").getResourceBundle();
         		this.msgScanErrAgain = this._oResourceBundle.getText("msgScanErr")+"\n" + this._oResourceBundle.getText("msgScanAgain");
-            },
+        },
+        
+        /* ======================================================= */
+		/* event handlers                                          */
+		/* ======================================================= */
+        onNavBackPressed: function (oEvent) {
+			this.getRouter().navTo("StyleInput");	
+		},
+		
+		onCancelPressed: function (oEvent) {
+			this.getRouter().navTo("StyleInput");	
+		},
            
         /* ======================================================= */
 		/* private methods                                         */

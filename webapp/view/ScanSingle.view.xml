@@ -2,12 +2,12 @@
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<App>
 		<pages>
-			<Page title="{i18n>title}" showNavButton="true" navButtonPress="navTo('StyleInput')">
+			<Page title="{i18n>title}" showNavButton="true" navButtonPress="onNavBackPressed">
 				<content/>
 			<footer>
 			    <Bar id="bar0">
 			        <contentRight>
-			            <Button text="{i18n>cancel}" width="100px" id="btnCancel" press="navTo('StyleInput')"/>
+			            <Button text="{i18n>cancel}" width="100px" id="btnCancel" press="onCancelPressed"/>
 			        </contentRight>
 			    </Bar>
 			</footer>

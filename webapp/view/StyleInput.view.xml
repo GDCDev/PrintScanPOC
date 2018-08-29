@@ -19,10 +19,10 @@
 			<footer>
 			    <Toolbar width="100%" id="toolbar1">
 			        <content>
-			            <Button text="{i18n>scan}" width="60px" id="btnScan" type="Accept" press="navTo('ScanSingle')"/>
-			            <Button text="{i18n>multiScan}" width="115px" id="btnMultiScan" type="Accept" press="navTo('ScanMulti')" />
+			            <Button text="{i18n>scan}" width="60px" id="btnScan" type="Accept" press="onScanPressed"/>
+			            <Button text="{i18n>multiScan}" width="115px" id="btnMultiScan" type="Accept" press="onScanMultiPressed" />
 			            <Button text="{i18n>go}" width="50px" id="btnGo" type="Emphasized" press="onGoPressed"/>
-			            <Button text="{i18n>cancel}" width="80px" id="btnCancel" press="navTo('EANList')"/>
+			            <Button text="{i18n>cancel}" width="80px" id="btnCancel" />
 			        </content>
 			    </Toolbar>
 			</footer>

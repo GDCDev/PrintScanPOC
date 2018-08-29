@@ -2,14 +2,14 @@ sap.ui.define([
 	"esprit/poc/PrintScanPOC/controller/BaseController"
 	,"sap/m/MessageBox"
 	,'sap/ui/model/json/JSONModel'
-], function (Controller,MessageBox,JSONModel) {
+], function (BaseController,MessageBox,JSONModel) {
 	"use strict";
-	return Controller.extend("esprit.poc.PrintScanPOC.controller.EANDetail", {
+	return BaseController.extend("esprit.poc.PrintScanPOC.controller.EANDetail", {
 		/* ======================================================= */
 		/* lifecycle methods                                       */
 		/* ======================================================= */
 		onInit: function() {
-			var oRouter = this.getOwnerComponent().getRouter();
+			var oRouter = this.getRouter();
             oRouter.getRoute("EANDetail").attachPatternMatched(this._onRouteMatched, this);
 		},
 
@@ -17,15 +17,8 @@ sap.ui.define([
 		/* ======================================================= */
 		/* event handlers                                          */
 		/* ======================================================= */
-		onNavBack: function(oEvent) {
-			var oHistory = sap.ui.core.routing.History.getInstance();
-			var	sPreviousHash = oHistory.getPreviousHash();
-			//this.byId("page").destroyContent();
-			if (sPreviousHash !== undefined) {
-				history.go(-1);
-			} else {
-				this.getOwnerComponent().getRouter().navTo("StyleInput");
-			}
+		onNavBackPressed: function(oEvent) {
+			this.navBack("StyleInput");
 		},
 		
 		//more info for barcode

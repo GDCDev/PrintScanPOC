@@ -1,7 +1,7 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="esprit.poc.PrintScanPOC.controller.StyleList">
 	<App>
 		<pages>
-			<Page title="{i18n>title}" showNavButton="true" navButtonPress="navBack('StyleInput')">
+			<Page title="{i18n>title}" showNavButton="true" navButtonPress="onNavBackPressed">
 				<content>
 					
 				    <List id="poList" modeAnimationOn="false" items="{view>/listData}">

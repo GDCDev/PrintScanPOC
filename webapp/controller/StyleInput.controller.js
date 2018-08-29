@@ -1,10 +1,10 @@
 sap.ui.define([
 	"esprit/poc/PrintScanPOC/controller/BaseController"
 	,"sap/m/MessageBox"
-], function (Controller,MessageBox) {
+], function (BaseController,MessageBox) {
 	"use strict";
-
-	return Controller.extend("esprit.poc.PrintScanPOC.controller.StyleInput", {
+	
+	return BaseController.extend("esprit.poc.PrintScanPOC.controller.StyleInput", {
 		/* ======================================================= */
 		/* lifecycle methods                                       */
 		/* ======================================================= */
@@ -21,7 +21,15 @@ sap.ui.define([
 			var oInput = this.byId("styleInput");
 			
 			oParams["styleId"] = oInput.getValue().trim();
-			this.getOwnerComponent().getRouter().navTo("StyleList", oParams);
+			this.getRouter().navTo("StyleList", oParams);
+		},
+		
+		onScanPressed: function (oEvent) {
+			this.getRouter().navTo('ScanSingle');
+		},
+		
+		onScanMultiPressed: function (oEvent) {
+			this.getRouter().navTo('ScanMulti');
 		}
 	});
 });

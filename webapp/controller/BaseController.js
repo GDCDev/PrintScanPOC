@@ -3,7 +3,7 @@ sap.ui.define([
 	"sap/ui/core/routing/History"
 ], function(Controller, History) {
 	"use strict";
-	return Controller.extend("esprit.standard.app.controller.BaseController", {
+	return Controller.extend("esprit.poc.PrintScanPOC.controller.BaseController", {
 
 		/**
 		* @returns router object
@@ -28,16 +28,7 @@ sap.ui.define([
 			} else {
 				this.getRouter().navTo(sRouteName);
 			}
-		},
-		
-		/**
-		* General function for navigating to
-		* 
-		* @param {string} sRouteName - Default route to navigate if no history found
-		* @public
-		*/
-		navTo: function(sRouteName) {
-			this.getRouter().navTo(sRouteName);
 		}
+		
 	});
 });

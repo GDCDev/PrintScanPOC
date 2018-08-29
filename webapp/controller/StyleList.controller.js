@@ -3,15 +3,15 @@ sap.ui.define([
 	,"sap/ui/core/UIComponent"
 	,"sap/m/MessageBox"
 	,"sap/ui/model/json/JSONModel"
-], function (Controller, UIComponent, MessageBox, JSONModel) {
+], function (BaseController, UIComponent, MessageBox, JSONModel) {
 	"use strict";
 
-	return Controller.extend("esprit.poc.PrintScanPOC.controller.StyleList", {
+	return BaseController.extend("esprit.poc.PrintScanPOC.controller.StyleList", {
 		/* ======================================================= */
 		/* lifecycle methods                                       */
 		/* ======================================================= */
 		onInit: function () {
-			var oRouter = this.getOwnerComponent().getRouter();
+			var oRouter = this.getRouter();
 			oRouter.getRoute("StyleList").attachPatternMatched(this._onObjectMatched, this);
 		},
 		
@@ -19,9 +19,13 @@ sap.ui.define([
 		/* event handlers                                          */
 		/* ======================================================= */
 		onLineItemPressed: function (oEvent) {
-			this.getOwnerComponent().getRouter().navTo("EANDetail", {
+			this.getRouter().navTo("EANDetail", {
 				ean:encodeURIComponent(oEvent.getSource().getProperty("title"))
 			}, false);
+		},
+		
+		onNavBackPressed: function (oEvent) {
+			this.getRouter().navTo("StyleInput");	
 		},
 
 		onPrintEANListPressed: function (oEvent) {

@@ -2,7 +2,7 @@
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<App>
 		<pages>
-			<Page title="{i18n>title}" showNavButton="true" navButtonPress="onNavBack">
+			<Page title="{i18n>title}" showNavButton="true" navButtonPress="onNavBackPressed">
 				<content>
 				     <List id="barcodeList" items="{view>/listData}">
 				     	<items>
@@ -14,7 +14,7 @@
 				<footer>
 				    <Bar class="sapContrast sapContrastPlus" id="bar0">
 					    <contentRight>
-					        <Button xmlns="sap.m"  text="{i18n>cancel}" width="100px" id="button0" press="navTo('StyleInput')" />
+					        <Button xmlns="sap.m"  text="{i18n>cancel}" width="100px" id="button0" press="onCancelPressed" />
 					    </contentRight>
 				    </Bar>	
 				</footer>

@@ -1,14 +1,14 @@
 sap.ui.define([
 	"esprit/poc/PrintScanPOC/controller/BaseController"
 	,"sap/ui/model/json/JSONModel"
-], function (Controller, JSONModel) {
+], function (BaseController, JSONModel) {
 	"use strict";
-	return Controller.extend("sap.m.PrintPOC.controller.EANList", {
+	return BaseController.extend("sap.m.PrintPOC.controller.EANList", {
 		/* ======================================================= */
 		/* lifecycle methods                                       */
 		/* ======================================================= */
 		onInit: function () {
-			var oRouter = this.getOwnerComponent().getRouter();
+			var oRouter = this.getRouter();
 			oRouter.getRoute("EANList")
 				.attachPatternMatched(this._onObjectMatched, this);
 			this.aBarcodes = [];
@@ -18,21 +18,19 @@ sap.ui.define([
 		/* event handlers                                          */
 		/* ======================================================= */
 		onLineItemPressed: function (oEvent) {
-			this.getOwnerComponent().getRouter().navTo("EANDetail", {
+			this.getRouter().navTo("EANDetail", {
 				//ean: encodeURIComponent(oEvent.getSource().getBindingContext().getProperty("Code"))
 				ean: encodeURIComponent(oEvent.getSource().getTitle())
 			}, false);
 		},
 
-		onNavBack: function (oEvent) {
-			var oHistory = sap.ui.core.routing.History.getInstance();
-			var sPreviousHash = oHistory.getPreviousHash();
-			if (sPreviousHash !== undefined) {
-				history.go(-1);
-			} else {
-				this.getOwnerComponent().getRouter().navTo("StyleInput");
-				this._clearList(this);
-			}
+		onNavBackPressed: function (oEvent) {
+			this.navBack("StyleInput");
+		},
+		
+		onCancelPressed: function (oEvent) {
+			this.getRouter().navTo("StyleInput");	
+			this._clearList(this);
 		},
 	
 		/* ======================================================= */

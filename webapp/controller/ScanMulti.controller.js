@@ -3,14 +3,14 @@ sap.ui.define([
 	,"sap/ui/core/UIComponent"
 	,"sap/m/MessageBox"
 	,"sap/m/MessageToast"
-], function (Controller, UIComponent, MessageBox, MessageToast) {
+], function (BaseController, UIComponent, MessageBox, MessageToast) {
 	"use strict";
-	return Controller.extend("esprit.poc.PrintScanPOC.controller.ScanMulti", {
+	return BaseController.extend("esprit.poc.PrintScanPOC.controller.ScanMulti", {
 		/* ======================================================= */
 		/* lifecycle methods                                       */
 		/* ======================================================= */
 		onInit: function () {
-			var oRouter = UIComponent.getRouterFor(this);
+			var oRouter = this.getRouter();
 			oRouter.getRoute("ScanMulti").attachPatternMatched(this._onAfterRendering, this);
 			var oComponent = sap.ui.component(sap.ui.core.Component.getOwnerIdFor(this.getView()));
 			this._oResourceBundle = oComponent.getModel("i18n").getResourceBundle();
@@ -22,13 +22,19 @@ sap.ui.define([
 		/* ======================================================= */
 		/* event handlers                                          */
 		/* ======================================================= */
-		onCancelPress: function (oEvent) {
-			if (this.barcodes.length == 0)
-						this.getOwnerComponent().getRouter().navTo("StyleInput");
-					else
-						this.getOwnerComponent().getRouter().navTo("EANList", {
-							barcodes: this.barcodes.join()
-						}, false);
+		onCancelPressed: function (oEvent) {
+			
+			if (this.barcodes.length == 0) {
+				this.getRouter().navTo("StyleInput");
+			} else {
+				this.getRouter().navTo("EANList", {
+					barcodes: this.barcodes.join()
+				}, false);
+			}
+		},
+		
+		onNavBackPressed: function (oEvent) {
+			this.getRouter().navTo("StyleInput");	
 		},
 		
 		/* ======================================================= */
@@ -93,7 +99,7 @@ sap.ui.define([
 					if (!that.barcodes.includes(result.text))
 						that.barcodes.push(result.text);
 					MessageToast.show(that.msgScanNew + result.text, {
-						duration: 1000
+						duration: 500
 					});
 					that._scan(that);
 				}

@@ -88,36 +88,48 @@
 					"target": [
 						"TargetStyleInput"
 					]
-				}, 
+				},
 				{
 					"name": "ScanSingle",
 					"pattern": "ScanSingle",
-					"target": ["ScanSingle"]
-				}, 
+					"target": [
+						"ScanSingle"
+					]
+				},
 				{
 					"name": "StyleInput",
 					"pattern": "StyleInput",
-					"target": ["TargetStyleInput"]
-				}, 
+					"target": [
+						"TargetStyleInput"
+					]
+				},
 				{
 					"name": "StyleList",
 					"pattern": "StyleList/:styleId:",
-					"target": ["StyleList"]
-				}, 
+					"target": [
+						"StyleList"
+					]
+				},
 				{
 					"name": "EANDetail",
 					"pattern": "EANDetail/{ean}",
-					"target": ["EANDetail"]
-				}, 
+					"target": [
+						"EANDetail"
+					]
+				},
 				{
 					"name": "EANList",
 					"pattern": "EANList/:barcodes:",
-					"target": ["EANList"]
-				}, 
+					"target": [
+						"EANList"
+					]
+				},
 				{
 					"name": "ScanMulti",
 					"pattern": "ScanMulti",
-					"target": ["ScanMulti"]
+					"target": [
+						"ScanMulti"
+					]
 				}
 			],
 			"targets": {
@@ -174,9 +186,19 @@
 				},
 				"EANList": {
 					"viewType": "XML",
-					"viewName": "EANList"
+					"viewName": "EANList",
+					"routerClass": "sap.m.routing.Router",
+					"async": true,
+					"viewPath": "esprit.poc.PrintScanPOC.view",
+					"controlAggregation": "pages",
+					"controlId": "idAppControl",
+					"clearControlAggregation": false
 				}
 			}
 		}
+	},
+	"sap.platform.hcp": {
+		"uri": "webapp",
+		"_version": "1.1.0"
 	}
 }
